@@ -21,6 +21,14 @@ float zcenter = 465;
 float zdeadzone = 3;
 float zsensitivity = 2;
 
+// Definities per programma per mode keys(mouse&kb) bij een move
+// N , -1 , mode , -2 , MOUSEKEY [,MOUSEKEY] , -3, KBKEY [, KBKEY]
+
+// 3D Builder
+int keydef1[] = {10 , -1 , 10 , -2 , MOUSE_LEFT , -1 , 20 , -2 , MOUSE_LEFT , -3 , KEY_LEFT_CTRL }
+
+int keydef[] = {10 , -1 , 10 , -2 , MOUSE_LEFT , -1 , 20 , -2 , MOUSE_LEFT , -3 , KEY_LEFT_CTRL };
+
 int mode = 20; // 10,11=Rotate , 20,21=Translate/Zoom
 
 int debug = 0;
@@ -59,8 +67,9 @@ void loop() {
     if(xmove!=0 || ymove!=0 || zmove!=0) {
       digitalWrite(13, HIGH);
       if(mode==10){
-        Keyboard.press(KEY_LEFT_SHIFT);
-        Mouse.press(MOUSE_MIDDLE);
+        DoKeys(1,1);
+        //Keyboard.press(KEY_LEFT_SHIFT);
+        //Mouse.press(MOUSE_MIDDLE);
         delay(10);
         mode=11;
       }
@@ -68,8 +77,9 @@ void loop() {
         Mouse.move(-xmove, ymove, 0);
       }
       if(mode==20){
-        Keyboard.press(KEY_LEFT_SHIFT);
-        Mouse.press(MOUSE_MIDDLE);
+        DoKeys(1,2);
+        //Keyboard.press(KEY_LEFT_SHIFT);
+        //Mouse.press(MOUSE_MIDDLE);
         delay(10);
         mode=21;
       }
@@ -79,13 +89,15 @@ void loop() {
     } else {
       digitalWrite(13, LOW);
       if(mode==11){
-        Mouse.release(MOUSE_MIDDLE);
-        Keyboard.release(KEY_LEFT_SHIFT);
+        DoKeys(0,1);
+        //Mouse.release(MOUSE_MIDDLE);
+        //Keyboard.release(KEY_LEFT_SHIFT);
         mode=10;
       }
       if(mode==21){
-        Mouse.release(MOUSE_MIDDLE);
-        Keyboard.release(KEY_LEFT_SHIFT);
+        DoKeys(0,2);
+        //Mouse.release(MOUSE_MIDDLE);
+        //Keyboard.release(KEY_LEFT_SHIFT);
         mode=20;
       }
     }
@@ -110,4 +122,30 @@ void loop() {
 
   delay(100);
 
+}
+
+//keydef[] = {10 , -1 , 1 , -2 , MOUSE_LEFT , -1 , 2 , -2 , MOUSE_LEFT , -3 , KEY_LEFT_CTRL }
+// Press/release keys
+// PressRelease : 1=Press , 0=Release
+// RotTrans     : 1=Rotate , 2=Translate
+void DoKeys(int PressRelease, int RotTrans) {
+  int keymouse;
+  int finished = 0;
+  for(i=1;i <= keydef[0]; i++){
+    if(eydef[i] == -1 && keydef[i+1] == RotTrans) {
+      for(j=i+2; j <= keydef[0]; j++){
+        if(keydef[j] == -2) { keymouse = 1; }
+        if(keydef[j] == -3) { keymouse = 2; }
+        if(keydef[j] == -1) {
+          finished=1;
+          break;
+        }
+        if(keydef[j] > 0 && keymouse == 1 && PressRelease == 1) { Keyboard.press(keydef[j]);   }
+        if(keydef[j] > 0 && keymouse == 2 && PressRelease == 1) { Mouse.press(keydef[j]);      }
+        if(keydef[j] > 0 && keymouse == 1 && PressRelease == 0) { Keyboard.release(keydef[j]); }
+        if(keydef[j] > 0 && keymouse == 2 && PressRelease == 0) { Mouse.release(keydef[j]);    }
+      }
+      break;
+    }
+  }
 }
