@@ -22,7 +22,7 @@ void ReadXY() {
   //if (xvalue < xcenter - xdeadzone) xmove=(1-(xvalue-xmin)/(xcenter-xdeadzone-xmin))*xsensitivity*-1;
 
   if (xvalue > xcenter + xdeadzone) xmove=(xvalue-xcenter)*xsensitivity;
-  if (xvalue < xcenter - xdeadzone) xmove=(xvalue-xcenter)*xsensitivity*-1;
+  if (xvalue < xcenter - xdeadzone) xmove=(xvalue-xcenter)*xsensitivity;
   
   int yvalue = analogRead(ypin);
   int ymove=0;
@@ -30,15 +30,20 @@ void ReadXY() {
   //if (yvalue < ycenter - ydeadzone) ymove=(1-(yvalue-ymin)/(ycenter-ydeadzone-ymin))*ysensitivity*-1;
 
   if (yvalue > ycenter + ydeadzone) ymove=(yvalue-ycenter)*ysensitivity;
-  if (yvalue < ycenter - ydeadzone) ymove=(yvalue-ycenter)*ysensitivity*-1;
+  if (yvalue < ycenter - ydeadzone) ymove=(yvalue-ycenter)*ysensitivity;
   
-  if(debug!=0){
-    Serial.print("Joystick x=");
-    Serial.print(xvalue);
-    Serial.print(" , y=");
-    Serial.println(yvalue);
-  }
+//  if(debug!=0){
+//    Serial.print("Joystick x=");
+//    Serial.print(xvalue);
+//    Serial.print(" , y=");
+//    Serial.println(yvalue);
+//  }
 
+  if(xmove>0){xmove=5;} 
+  if(xmove<0){xmove=-5;} 
+  if(ymove>0){ymove=5;} 
+  if(ymove<0){ymove=-5;} 
+   
   if(xmove!=0 || ymove!=0) {
     Queue(0, ActionKeys,  mode,1,0); // Does this need a Move 0,0,0 too?
     Queue(0, ActionMouse, mode,xmove,ymove);
@@ -46,7 +51,7 @@ void ReadXY() {
     //Queue(0, ActionMouse, mode,1,0);
     //Queue(0, ActionMouse, mode,xmove,ymove);
     Queue(0, ActionKeys,  mode,0,0);
-    Queue(0, ActionMouse, mode,-xmove,-ymove);
+    //Queue(10, ActionMouse, mode,-xmove,-ymove);
     //Queue(0, ActionMouse, mode,-xmove,-ymove);
     //Queue(0, ActionMouse, mode,-1,0);
     //Queue(0, ActionMouse, mode,-xmove,-ymove);

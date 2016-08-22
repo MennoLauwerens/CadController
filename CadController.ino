@@ -1,6 +1,7 @@
 #define xpin A0
 #define ypin A1
 #define zpin A2
+#define ReSwitchpin A3
 #define debugpin A5
 
 #define Rotate 1
@@ -19,8 +20,8 @@ int keydef1[] = {10 , -1 , 1 , -2 , MOUSE_LEFT , -1 , 2 , -2 , MOUSE_LEFT , -3 ,
 
 int keydef[] = {10 , -1 , 1 , -2 , MOUSE_LEFT , -1 , 2 , -2 , MOUSE_LEFT , -3 , KEY_LEFT_CTRL };
 
-//int mode = Rotate;
-int mode = Translate;
+int mode = Rotate;
+//int mode = Translate;
 
 int debug = 0;
 
@@ -29,6 +30,7 @@ int debug = 0;
 #define ActionReadXY 1
 #define ActionKeys 2
 #define ActionMouse 3
+#define ActionRE 4
 
 unsigned long QueueTime[MaxQueueLength];
 int QueueModule[MaxQueueLength];
@@ -54,7 +56,8 @@ void Queue(int delayms, int module, int action,int data1 = 0,int data2 = 0) {
 void setup() {
   pinMode(13, OUTPUT);
   pinMode(debugpin,INPUT_PULLUP);
-
+  pinMode(ReSwitchpin, INPUT_PULLUP);
+  
   //Check for Debug mode
   delay(500);
   int sensorVal = digitalRead(debugpin);
@@ -73,7 +76,6 @@ void setup() {
 }
 
 void loop() {
-  
  if (QueueChanged) {
     //Serial.print("QueueLength: ");
     //Serial.println(QueueLength);
@@ -110,6 +112,9 @@ void loop() {
           break;   
         case ActionMouse:
           DoMouseXY(QData1,QData2);
+          break;
+        case ActionRE:
+          ReadRE();
           break;
       }
       break;

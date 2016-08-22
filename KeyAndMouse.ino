@@ -41,9 +41,11 @@ void DoKeys(int RotTrans, int PressRelease) {
 
 void DoMouseXY(int x, int y) {
   if(debug==0) {
+    delay(5);
     Mouse.move(x, y, 0);
-    delay(2);
-    Mouse.move(0, 0, 0);
+    delay(5);
+    Mouse.move(x, y, 0);
+    delay(5);
   } else {
     Serial.print("MouseMove   : ");Serial.print(x);Serial.print(",");Serial.println(y);
   }
