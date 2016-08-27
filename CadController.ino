@@ -1,8 +1,17 @@
+//#define ENCODER_OPTIMIZE_INTERRUPTS
+#include <Encoder.h>
+
 #define xpin A0
 #define ypin A1
-#define zpin A2
-#define ReSwitchpin A3
+//#define zpin A2
+#define ReSwitchpin A2
 #define debugpin A5
+
+#define encoder0PinClk 3 //clk
+#define encoder0PinDta 2 //dta
+
+
+Encoder myEnc( encoder0PinClk, encoder0PinDta );
 
 #define Rotate 1
 #define Translate 2
@@ -20,9 +29,10 @@ int keydef1[] = {10 , -1 , 1 , -2 , MOUSE_LEFT , -1 , 2 , -2 , MOUSE_LEFT , -3 ,
 
 int keydef[] = {10 , -1 , 1 , -2 , MOUSE_LEFT , -1 , 2 , -2 , MOUSE_LEFT , -3 , KEY_LEFT_CTRL };
 
-int mode = Rotate;
-//int mode = Translate;
-
+//int mode = Rotate;
+int newmode = Rotate;
+int mode = newmode;
+ 
 int debug = 0;
 
 //Queue---------------------
@@ -30,7 +40,7 @@ int debug = 0;
 #define ActionReadXY 1
 #define ActionKeys 2
 #define ActionMouse 3
-#define ActionRE 4
+#define ActionRESwitch 4
 
 unsigned long QueueTime[MaxQueueLength];
 int QueueModule[MaxQueueLength];
@@ -57,6 +67,7 @@ void setup() {
   pinMode(13, OUTPUT);
   pinMode(debugpin,INPUT_PULLUP);
   pinMode(ReSwitchpin, INPUT_PULLUP);
+
   
   //Check for Debug mode
   delay(500);
@@ -72,6 +83,7 @@ void setup() {
   }
   initXY();
   Queue(1000,ActionReadXY,0,0,0);
+  Queue(800,ActionRESwitch,0,0,0);
   
 }
 
@@ -82,7 +94,7 @@ void loop() {
     //DumpQueue();
     QueueChanged=false;
   }
-  if(QueueLength==0) {Queue(0, ActionReadXY, 0,0,0);} 
+  if(QueueLength==0) {Queue(0, ActionReadXY, 0,0,0);Queue(0,ActionRESwitch,0,0,0);} 
   for (int i=0;i < QueueLength;i++) {
 
     if (QueueTime[i] <= millis()) {
@@ -113,8 +125,8 @@ void loop() {
         case ActionMouse:
           DoMouseXY(QData1,QData2);
           break;
-        case ActionRE:
-          ReadRE();
+        case ActionRESwitch:
+          ReadRESwitch();
           break;
       }
       break;

@@ -45,16 +45,12 @@ void ReadXY() {
   if(ymove<0){ymove=-5;} 
    
   if(xmove!=0 || ymove!=0) {
+    mode = newmode;
     Queue(0, ActionKeys,  mode,1,0); // Does this need a Move 0,0,0 too?
     Queue(0, ActionMouse, mode,xmove,ymove);
-    //Queue(0, ActionMouse, mode,xmove,ymove);
-    //Queue(0, ActionMouse, mode,1,0);
-    //Queue(0, ActionMouse, mode,xmove,ymove);
     Queue(0, ActionKeys,  mode,0,0);
-    //Queue(10, ActionMouse, mode,-xmove,-ymove);
-    //Queue(0, ActionMouse, mode,-xmove,-ymove);
-    //Queue(0, ActionMouse, mode,-1,0);
-    //Queue(0, ActionMouse, mode,-xmove,-ymove);
+    Queue(15, ActionMouse, mode,-xmove,-ymove);
+    Queue(20, ActionMouse, mode,0,0);
   }
   //Queue(100, ActionReadXY, 0,0,0);
 }
