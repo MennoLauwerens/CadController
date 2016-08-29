@@ -32,12 +32,12 @@ void ReadRE(){
     Serial.print("newPosition=");
     Serial.println(newPosition);
   }
-  if (newPosition > oldPosition) {
-    Mouse.move(0, 0, 1);
+  if (newPosition > oldPosition +3) {
+    Mouse.move(0, 0, -1);
     oldPosition = newPosition;
   }
-  if (newPosition < oldPosition) {
-    Mouse.move(0, 0, -1);
+  if (newPosition < oldPosition -3) {
+    Mouse.move(0, 0, 1);
     oldPosition = newPosition;
   } 
 }

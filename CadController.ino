@@ -4,12 +4,12 @@
 #define xpin A0
 #define ypin A1
 //#define zpin A2
-#define ReSwitchpin A2
+
 #define debugpin A5
 
-#define encoder0PinClk 3 //clk
-#define encoder0PinDta 2 //dta
-
+#define encoder0PinClk 2 //clk
+#define encoder0PinDta 3 //dta
+#define ReSwitchpin 4
 
 Encoder myEnc( encoder0PinClk, encoder0PinDta );
 

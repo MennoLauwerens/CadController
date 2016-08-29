@@ -16,8 +16,8 @@ void DoKeys(int RotTrans, int PressRelease) {
           finished=1;
           break;
         }
-        if(debug==0) {
           if(keydef[j] > 0 && keymouse == -3 && PressRelease == 1) { Keyboard.press(keydef[j]);   }
+        if(debug==0) {
           if(keydef[j] > 0 && keymouse == -2 && PressRelease == 1) { Mouse.press(keydef[j]);      }
           if(keydef[j] > 0 && keymouse == -3 && PressRelease == 0) { Keyboard.release(keydef[j]); }
           if(keydef[j] > 0 && keymouse == -2 && PressRelease == 0) { Mouse.release(keydef[j]);    }
