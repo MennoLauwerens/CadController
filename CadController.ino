@@ -26,8 +26,9 @@ float zsensitivity = 2;
 
 // 3D Builder
 int keydef1[] = {10 , -1 , 1 , -2 , MOUSE_LEFT , -1 , 2 , -2 , MOUSE_LEFT , -3 , KEY_LEFT_CTRL };
+int keydef2[] = {10 , -1 , 1 , -2 , MOUSE_MIDDLE , -1 , 2 , -2 , MOUSE_MIDDLE , -3 , KEY_LEFT_SHIFT };
 
-int keydef[] = {10 , -1 , 1 , -2 , MOUSE_LEFT , -1 , 2 , -2 , MOUSE_LEFT , -3 , KEY_LEFT_CTRL };
+int keydef[] = {10 , -1 , 1 , -2 , MOUSE_MIDDLE , -1 , 2 , -3 , KEY_LEFT_SHIFT , -2 , MOUSE_MIDDLE };
 
 //int mode = Rotate;
 int newmode = Rotate;
@@ -132,7 +133,7 @@ void loop() {
       break;
     }
   }
-  delay(10);
+  delay(5);
 
 }
 

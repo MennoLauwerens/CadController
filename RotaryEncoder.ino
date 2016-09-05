@@ -29,8 +29,8 @@ void ReadRESwitch(){
 void ReadRE(){
   newPosition = myEnc.read();
   if(debug!=0){
-    Serial.print("newPosition=");
-    Serial.println(newPosition);
+    //Serial.print("newPosition=");
+    //Serial.println(newPosition);
   }
   if (newPosition > oldPosition +3) {
     Mouse.move(0, 0, -1);

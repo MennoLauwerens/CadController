@@ -2,6 +2,8 @@
 // Press/release keys
 // PressRelease : 1=Press , 0=Release
 // RotTrans     : 1=Rotate , 2=Translate
+int keyState = 0;
+
 void DoKeys(int RotTrans, int PressRelease) {
   int keymouse;
   int finished = 0;
@@ -41,11 +43,11 @@ void DoKeys(int RotTrans, int PressRelease) {
 
 void DoMouseXY(int x, int y) {
   if(debug==0) {
-    delay(5);
+    //delay(5);
     Mouse.move(x, y, 0);
     delay(5);
-    Mouse.move(x, y, 0);
-    delay(5);
+    //Mouse.move(x, y, 0);
+    //delay(5);
   } else {
     Serial.print("MouseMove   : ");Serial.print(x);Serial.print(",");Serial.println(y);
   }
