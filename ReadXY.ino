@@ -60,7 +60,7 @@ void ReadXY() {
     Queue(0, ActionMouse, mode,xmove,ymove);
     //Queue(0, ActionKeys,  mode,0,0);
     //Queue(15, ActionMouse, mode,-xmove,-ymove);
-    //Queue(20, ActionMouse, mode,0,0);
+    Queue(0, ActionMouse, mode,0,0);
   } else {
      if(keyState == 1){
        Queue(0, ActionKeys,  mode,0,0);

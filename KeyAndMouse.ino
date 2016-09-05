@@ -46,7 +46,7 @@ void DoMouseXY(int x, int y) {
     //delay(5);
     Mouse.move(x, y, 0);
     delay(5);
-    //Mouse.move(x, y, 0);
+    Mouse.move(x, y, 0);
     //delay(5);
   } else {
     Serial.print("MouseMove   : ");Serial.print(x);Serial.print(",");Serial.println(y);

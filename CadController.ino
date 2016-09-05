@@ -133,7 +133,7 @@ void loop() {
       break;
     }
   }
-  delay(5);
+  delay(1);
 
 }
 
